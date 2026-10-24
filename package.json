@@ -1,0 +1,15 @@
+{
+  "name": "expense-splitter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared expense splitter: log group expenses and settle up with the fewest payments",
+  "workspaces": ["server", "client"],
+  "scripts": {
+    "dev:server": "npm run dev -w server",
+    "dev:client": "npm run dev -w client",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "engines": { "node": ">=22.13" }
+}
