@@ -80,7 +80,7 @@ export function Dashboard() {
         <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
           <section className="rise grid content-start gap-4" style={{ "--i": 2 } as React.CSSProperties}>
             <h2 className="text-[15px] font-semibold tracking-tight">Groups</h2>
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-2.5">
               {groups.map((g) => {
                 const spent = g.expenses.reduce((s, e) => s + e.amountCents, 0);
                 const settled = g.expenses.length > 0 && g.settlements.length === 0;
@@ -88,27 +88,24 @@ export function Dashboard() {
                   <a
                     key={g.id}
                     href={`#/app/groups/${g.id}`}
-                    className="group grid gap-5 rounded-2xl border border-line bg-surface p-5 transition duration-200 hover:-translate-y-0.5 hover:border-white/15 hover:bg-raised/60"
+                    className="group flex items-center gap-4 rounded-2xl border border-line bg-surface px-5 py-4 transition duration-200 hover:border-white/15 hover:bg-raised/60 sm:gap-6"
                   >
-                    <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
                       <p className="truncate font-semibold">{g.name}</p>
-                      <ArrowRight className="size-4 shrink-0 text-muted transition group-hover:translate-x-0.5 group-hover:text-ink" />
+                      <p className="mt-0.5 text-sm text-muted tabular-nums">{money(spent)} spent</p>
                     </div>
-                    <div className="flex items-end justify-between gap-3">
-                      <div>
-                        <p className="text-xs text-muted">Spent</p>
-                        <p className="text-lg font-semibold tracking-tight">{money(spent)}</p>
-                      </div>
-                      <span
-                        className={cn(
-                          "rounded-full px-2.5 py-1 text-xs font-medium",
-                          settled ? "bg-positive/10 text-positive" : "bg-white/[0.06] text-muted",
-                        )}
-                      >
-                        {settled ? "Settled" : `${g.settlements.length} to settle`}
-                      </span>
+                    <div className="hidden sm:block">
+                      <AvatarStack members={g.members} />
                     </div>
-                    <AvatarStack members={g.members} />
+                    <span
+                      className={cn(
+                        "shrink-0 rounded-full px-2.5 py-1 text-xs font-medium",
+                        settled ? "bg-positive/10 text-positive" : "bg-white/[0.06] text-muted",
+                      )}
+                    >
+                      {settled ? "Settled" : `${g.settlements.length} to settle`}
+                    </span>
+                    <ArrowRight className="size-4 shrink-0 text-muted transition group-hover:translate-x-0.5 group-hover:text-ink" />
                   </a>
                 );
               })}

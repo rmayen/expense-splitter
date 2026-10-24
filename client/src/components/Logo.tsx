@@ -1,4 +1,5 @@
-export function Logo() {
+// compact hides the wordmark on small screens so top bars keep room for their links.
+export function Logo({ compact = false }: { compact?: boolean }) {
   return (
     <span className="flex items-center gap-2.5 text-[15px] font-semibold tracking-tight">
       <span aria-hidden className="grid size-7 place-items-center rounded-lg bg-accent text-accent-ink">
@@ -6,7 +7,7 @@ export function Logo() {
           <path d="M7 4v16M17 4v16M4 9h6M14 15h6" />
         </svg>
       </span>
-      Expense Splitter
+      <span className={compact ? "hidden sm:inline" : undefined}>Expense Splitter</span>
     </span>
   );
 }

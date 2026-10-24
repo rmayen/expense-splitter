@@ -75,7 +75,7 @@ export function Avatar({ member, size = "md" }: { member: Pick<Member, "id" | "n
       aria-label={member.name}
       className={cn(
         "grid shrink-0 place-items-center rounded-full font-semibold text-bg ring-2 ring-surface",
-        size === "sm" ? "size-6 text-[10px]" : "size-9 text-xs",
+        size === "sm" ? "size-7 text-[11px]" : "size-9 text-xs",
       )}
       style={{ background: avatarColor(member.id) }}
     >
@@ -95,7 +95,7 @@ export function AvatarStack({ members, max = 5 }: { members: Member[]; max?: num
         </span>
       ))}
       {extra > 0 && (
-        <span className="-ml-2 grid size-6 place-items-center rounded-full bg-raised text-[10px] font-semibold text-muted ring-2 ring-surface">
+        <span className="-ml-2 grid size-7 place-items-center rounded-full bg-raised text-[11px] font-semibold text-muted ring-2 ring-surface">
           +{extra}
         </span>
       )}

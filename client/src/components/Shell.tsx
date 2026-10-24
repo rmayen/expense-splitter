@@ -58,7 +58,7 @@ export function Shell({ path, children }: { path: string; children: ReactNode })
       <div className="min-w-0">
         <nav className="flex items-center gap-1 overflow-x-auto border-b border-line bg-surface/60 px-4 py-3 backdrop-blur lg:hidden" aria-label="Main">
           <a href="#/" className="mr-2 shrink-0">
-            <Logo />
+            <Logo compact />
           </a>
           {nav.map((item) => (
             <a
