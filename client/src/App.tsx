@@ -1,74 +1,22 @@
-import { useEffect, useState, type FormEvent } from "react";
-import { api } from "./api";
-import { GroupPage } from "./GroupPage";
-
-// Groups are addressed by id in the URL hash (#/groups/3). There is no login, so anyone
-// with the link can view and edit the group.
-function groupIdFromHash(): number | null {
-  const match = window.location.hash.match(/^#\/groups\/(\d+)$/);
-  return match ? Number(match[1]) : null;
-}
+import { Shell } from "./components/Shell";
+import { Dashboard } from "./pages/Dashboard";
+import { GroupDetail } from "./pages/GroupDetail";
+import { Landing } from "./pages/Landing";
+import { NewGroup } from "./pages/NewGroup";
+import { go, useHashPath } from "./lib/route";
 
 export function App() {
-  const [groupId, setGroupId] = useState(groupIdFromHash);
+  const path = useHashPath();
 
-  useEffect(() => {
-    const onHashChange = () => setGroupId(groupIdFromHash());
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, []);
+  if (path === "/") return <Landing />;
 
-  return (
-    <div className="app">
-      <header className="topbar">
-        <a href="#/" className="brand">
-          Expense Splitter
-        </a>
-      </header>
-      <main>{groupId === null ? <NewGroup /> : <GroupPage key={groupId} groupId={groupId} />}</main>
-    </div>
-  );
-}
+  if (path === "/app") return <Shell path={path}><Dashboard /></Shell>;
+  if (path === "/app/new") return <Shell path={path}><NewGroup /></Shell>;
 
-function NewGroup() {
-  const [name, setName] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
+  const group = path.match(/^\/app\/groups\/(\d+)$/);
+  if (group) return <Shell path="/app/groups"><GroupDetail key={group[1]} groupId={Number(group[1])} /></Shell>;
 
-  async function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    setBusy(true);
-    setError(null);
-    try {
-      const group = await api.createGroup(name);
-      window.location.hash = `#/groups/${group.id}`;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  return (
-    <section className="card hero">
-      <h1>Split expenses without the math.</h1>
-      <p className="muted">
-        Create a group, add everyone, and log what you spend. We'll work out who owes whom and the fewest
-        payments needed to settle up.
-      </p>
-      <form onSubmit={onSubmit} className="row">
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Group name, e.g. Spring break"
-          maxLength={80}
-          required
-        />
-        <button type="submit" disabled={busy || !name.trim()}>
-          Create group
-        </button>
-      </form>
-      {error && <p className="error">{error}</p>}
-    </section>
-  );
+  // Unknown paths go back to the dashboard rather than showing a blank page.
+  go("/app");
+  return null;
 }

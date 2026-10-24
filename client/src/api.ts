@@ -33,7 +33,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   createGroup: (name: string) =>
-    request<{ id: number }>("/api/groups", { method: "POST", body: JSON.stringify({ name }) }),
+    request<{ id: number; name: string }>("/api/groups", { method: "POST", body: JSON.stringify({ name }) }),
   getGroup: (id: number) => request<Group>(`/api/groups/${id}`),
   addMember: (groupId: number, name: string) =>
     request<Member>(`/api/groups/${groupId}/members`, { method: "POST", body: JSON.stringify({ name }) }),
@@ -44,7 +44,3 @@ export const api = {
   deleteExpense: (groupId: number, expenseId: number) =>
     request<void>(`/api/groups/${groupId}/expenses/${expenseId}`, { method: "DELETE" }),
 };
-
-export function formatMoney(cents: number): string {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
-}
