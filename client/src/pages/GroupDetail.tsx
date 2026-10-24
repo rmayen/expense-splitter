@@ -96,7 +96,7 @@ export function GroupDetail({ groupId }: { groupId: number }) {
       <div className="rise grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4" style={{ "--i": 1 } as React.CSSProperties}>
         <Stat icon={<Wallet className="size-4" />} label="Total spent" value={money(totalCents)} />
         <Stat icon={<Receipt className="size-4" />} label="Expenses" value={String(group.expenses.length)} />
-        <Stat icon={<ArrowRight className="size-4" />} label="Payments left" value={String(group.settlements.length)} />
+        <Stat icon={<ArrowRight className="size-4" />} label="To settle" value={String(group.settlements.length)} />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr]">

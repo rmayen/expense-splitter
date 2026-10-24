@@ -12,8 +12,8 @@ export function Shell({ path, children }: { path: string; children: ReactNode })
   ];
 
   return (
-    <div className="min-h-screen md:grid md:grid-cols-[15rem_1fr]">
-      <aside className="sticky top-0 hidden h-screen flex-col gap-6 border-r border-line bg-surface/60 p-4 md:flex">
+    <div className="min-h-screen lg:grid lg:grid-cols-[15rem_1fr]">
+      <aside className="sticky top-0 hidden h-screen flex-col gap-6 border-r border-line bg-surface/60 p-4 lg:flex">
         <a href="#/" className="px-2 pt-1">
           <Logo />
         </a>
@@ -34,7 +34,7 @@ export function Shell({ path, children }: { path: string; children: ReactNode })
           ))}
         </nav>
         <div className="min-h-0 overflow-y-auto">
-          <p className="px-3 pb-2 text-xs font-medium tracking-wide text-muted/80 uppercase">Recent groups</p>
+          <p className="px-3 pb-2 text-xs font-medium tracking-wide text-muted uppercase">Recent groups</p>
           {recent.length === 0 ? (
             <p className="px-3 text-sm text-muted">None yet</p>
           ) : (
@@ -56,7 +56,7 @@ export function Shell({ path, children }: { path: string; children: ReactNode })
       </aside>
 
       <div className="min-w-0">
-        <nav className="flex items-center gap-1 overflow-x-auto border-b border-line bg-surface/60 px-4 py-3 backdrop-blur md:hidden" aria-label="Main">
+        <nav className="flex items-center gap-1 overflow-x-auto border-b border-line bg-surface/60 px-4 py-3 backdrop-blur lg:hidden" aria-label="Main">
           <a href="#/" className="mr-2 shrink-0">
             <Logo />
           </a>

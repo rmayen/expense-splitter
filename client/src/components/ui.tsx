@@ -46,7 +46,7 @@ export function Field({ label, hint, children }: { label: string; hint?: string;
     <div className="grid gap-2">
       <span className="text-[13px] font-medium text-muted">{label}</span>
       {children}
-      {hint && <span className="text-xs text-muted/80">{hint}</span>}
+      {hint && <span className="text-xs text-muted">{hint}</span>}
     </div>
   );
 }
